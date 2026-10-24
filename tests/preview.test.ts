@@ -2,6 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {JSDOM} from 'jsdom';
 import {activate} from '../src/preview';
+import {fittedScale,svgBox} from '../src/zoom';
 function harness(path:string,text=''){
  const dom=new JSDOM('<div id="navigation"></div><div id="editor"></div>',{url:'https://ide.test'});const win=dom.window;
  for(const key of ['document','DOMParser','XMLSerializer','localStorage','KeyboardEvent'])globalThis[key]=win[key];
@@ -19,6 +20,12 @@ function harness(path:string,text=''){
  const controller=activate(sdk);
  return {dom,controller,pending,host,resolveRead:(s:string)=>resolveRead(s),edit(value:string){text=value;version++;listeners.get('content')?.forEach(fn=>fn());},dispose(){for(const c of clean.reverse())typeof c==='function'?c():c.dispose();},get disconnected(){return disconnected;},get listenerCount(){return [...listeners.values()].reduce((n,s)=>n+s.size,0);}};
 }
+test('svg measurement uses attributes and fit enlarges small icons',()=>{
+ assert.deepEqual(svgBox('<svg width="16px" height="16"></svg>'),{width:16,height:16});
+ assert.deepEqual(svgBox('<svg viewBox="0 0 24 24"></svg>'),{width:24,height:24});
+ assert.equal(fittedScale(16,16,0,0),undefined);
+ assert.equal(fittedScale(16,16,400,300),8);
+});
 test('live SVG updates, invalid XML recovery and complete disposal',async()=>{
  const h=harness('icon.svg','<svg width="80" height="40"><rect width="20"/></svg>');
  h.pending[0].onload();assert.equal(document.querySelector('#svg-preview')?.getAttribute('data-state'),'ready');
