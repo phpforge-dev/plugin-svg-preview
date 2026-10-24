@@ -1,0 +1,18 @@
+{
+  "id": "phpforge.svg-preview",
+  "name": "SVG Preview",
+  "version": "1.0.0",
+  "minIdeVersion": "0.2.13",
+  "main": "main.js",
+  "description": "Live SVG source preview, zoom, backgrounds and recoverable XML errors.",
+  "permissions": [
+    "project.read",
+    "workbench"
+  ],
+  "workbench": {
+    "apiVersion": 1,
+    "main": "workbench.js",
+    "style": "workbench.css",
+    "services": []
+  }
+}

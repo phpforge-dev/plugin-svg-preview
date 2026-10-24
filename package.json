@@ -1,0 +1,15 @@
+{
+  "name": "@phpforge/plugin-svg-preview",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --import tsx --test tests/*.test.ts"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "tsx": "^4.23.15",
+    "jsdom": "26.1.0"
+  }
+}
