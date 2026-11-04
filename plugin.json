@@ -1,7 +1,7 @@
 {
   "id": "phpforge.svg-preview",
   "name": "SVG Preview",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minIdeVersion": "0.2.13",
   "main": "main.js",
   "description": "Live SVG source preview, zoom, backgrounds and recoverable XML errors.",
